@@ -1,8 +1,6 @@
-package com.prog_utente.model;
+package com.prog_utente.davide.model;
 
 import java.time.LocalDate;
-
-import org.springframework.data.annotation.Id;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,14 +8,15 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -46,7 +45,8 @@ public class Utente {
     private String email;
 
     @Column
-    @NotBlank (message="La data di nascita è obbligatoria")
+    @NotNull (message="La data di nascita è obbligatoria")
+    //@NotBlank funziona con le stringhe
     private LocalDate dataNascita;
 
     @Column(nullable = false)
@@ -57,7 +57,7 @@ public class Utente {
 
     @Column
     @NotNull (message="Il ruolo è obbligatorio")
-    @NotBlank (message="Il ruolo è obbligatorio")
+    //@NotBlank NON SI PUO' UTILIZZARE CON ENUM
     @Enumerated (EnumType.STRING) //(EVITIAMO DI METTERE @ENTITY IN RUOLO) Salva l'enum come stringa nel database
     private Ruolo ruolo;
 }

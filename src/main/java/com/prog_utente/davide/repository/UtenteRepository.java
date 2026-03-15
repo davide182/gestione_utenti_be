@@ -1,4 +1,4 @@
-package com.prog_utente.repository;
+package com.prog_utente.davide.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.prog_utente.model.Ruolo;
-import com.prog_utente.model.Utente;
+import com.prog_utente.davide.model.Ruolo;
+import com.prog_utente.davide.model.Utente;
 
 @Repository //REGISTRA QUESTA CLASSE REPOSITORY
 //JPAREPOSITORY CHE E' IMPLEMENTATO GENERA SAVE(), FINDBYID() ECC...

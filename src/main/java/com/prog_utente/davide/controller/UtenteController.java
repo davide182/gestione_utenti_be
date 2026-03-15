@@ -1,4 +1,4 @@
-package com.prog_utente.controller;
+package com.prog_utente.davide.controller;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.prog_utente.model.Ruolo;
-import com.prog_utente.model.Utente;
-import com.prog_utente.service.UtenteService;
+import com.prog_utente.davide.model.Ruolo;
+import com.prog_utente.davide.model.Utente;
+import com.prog_utente.davide.service.UtenteService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

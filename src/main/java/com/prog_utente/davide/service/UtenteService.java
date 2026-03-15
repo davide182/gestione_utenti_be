@@ -1,13 +1,13 @@
-package com.prog_utente.service;
+package com.prog_utente.davide.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.prog_utente.model.Ruolo;
-import com.prog_utente.model.Utente;
-import com.prog_utente.repository.UtenteRepository;
+import com.prog_utente.davide.model.Ruolo;
+import com.prog_utente.davide.model.Utente;
+import com.prog_utente.davide.repository.UtenteRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +32,7 @@ public class UtenteService {
             log.warn("Email già esistente: {}", utente.getEmail());
             throw new IllegalArgumentException("Email già esistente");
         }
+        //SE RIESCE A PASSARE UN NULL MA DAL MODEL NON POTREBBE CON NOTNULL
         if(utente.getRuolo() == null){
             utente.setRuolo(Ruolo.USER); // Imposta il ruolo predefinito se nullo
         }

@@ -1,4 +1,4 @@
-package com.prog_utente.model;
+package com.prog_utente.davide.model;
 
 public enum  Ruolo {
     ADMIN,

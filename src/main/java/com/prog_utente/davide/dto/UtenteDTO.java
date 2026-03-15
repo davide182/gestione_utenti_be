@@ -1,6 +1,6 @@
-package com.prog_utente.dto;
+package com.prog_utente.davide.dto;
 
-import com.prog_utente.model.Ruolo;
+import com.prog_utente.davide.model.Ruolo;
 
 import lombok.Data;
 
