@@ -2,6 +2,7 @@ package com.prog_utente.davide.service;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service //REGISTRA QUESTA CLASSE SERVICE, FALLA DIVENTARE INNIETABILE (@AUTOWIRED, IL NEW)
 public class UtenteService {
     private final UtenteRepository utenteRepository;
+    private final PasswordEncoder passwordEncoder;
 
     private List<Utente> utentiPerRuolo;
 
@@ -36,6 +38,10 @@ public class UtenteService {
         if(utente.getRuolo() == null){
             utente.setRuolo(Ruolo.USER); // Imposta il ruolo predefinito se nullo
         }
+
+        String passwordCriptata = passwordEncoder.encode(utente.getPassword());
+        utente.setPassword(passwordCriptata);
+        log.debug("Password criptata per utente {}: {}", utente.getUsername(), passwordCriptata);
 
         Utente utenteSalvato = utenteRepository.save(utente);
         log.info("Utente creato con successo. ID: {}", utenteSalvato.getId());
@@ -65,8 +71,13 @@ public class UtenteService {
         log.info("Aggiornamento utente con ID: {}", id);
 
         Utente utenteEsistente = utenteRepository.findById(id).orElseThrow(()-> new IllegalAccessError("Utente non trovato"));
-        if(!utenteEsistente.getPassword().equals(utenteDetails.getPassword()) || !utenteEsistente.getEmail().equals(utenteDetails.getEmail()) || !utenteEsistente.getUsername().equals(utenteDetails.getUsername())){
+        if(!utenteEsistente.getEmail().equals(utenteDetails.getEmail()) || !utenteEsistente.getUsername().equals(utenteDetails.getUsername())){
             throw new IllegalAccessException("Credenziali errate!");
+        }
+
+        if (!passwordEncoder.matches(utenteDetails.getPassword(), utenteEsistente.getPassword())) {
+            log.warn("Tentativo di aggiornamento con password errata per utente ID: {}", id);
+            throw new IllegalAccessException("Password errata!");
         }
 
         utenteEsistente.setUsername(utenteDetails.getUsername());
@@ -83,7 +94,12 @@ public class UtenteService {
         log.info("Eliminazione utente con ID: {}", id);
         Utente utenteEsistente = utenteRepository.findById(id).orElseThrow(()-> new IllegalAccessError("Utente non trovato"));
 
-        if (!utenteEsistente.getEmail().equals(utenteDetails.getEmail()) || !utenteEsistente.getPassword().equals(utenteDetails.getPassword()) || !utenteEsistente.getUsername().equals(utenteDetails.getUsername())){
+        if (!passwordEncoder.matches(utenteDetails.getPassword(), utenteEsistente.getPassword())) {
+            log.warn("Tentativo di eliminazione con password errata per utente ID: {}", id);
+            throw new IllegalArgumentException("Password errata!");
+        }
+
+        if (!utenteEsistente.getEmail().equals(utenteDetails.getEmail()) || !utenteEsistente.getUsername().equals(utenteDetails.getUsername())){
             throw new IllegalArgumentException("Utente non autorizzato");
         }
         utenteRepository.delete(utenteEsistente);
@@ -92,10 +108,7 @@ public class UtenteService {
 
     @Transactional(readOnly = true) //READONLY SIGNIFICA CHE SALTA I CONTROLLI PERCHE' NON SI MODIFICANO DATI
     public List<Utente> getUtentiByRuolo(Ruolo ruolo){
-        for (Utente utente : utenteRepository.findByRuolo(ruolo)){
-            utentiPerRuolo.add(utente);
-        }
-        log.debug("Recupero utenti con ruolo: {}", ruolo);
-        return utentiPerRuolo;
-    }
+    log.debug("Recupero utenti con ruolo: {}", ruolo);
+    return utenteRepository.findByRuolo(ruolo); 
+}
 }

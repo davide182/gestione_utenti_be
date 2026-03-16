@@ -34,7 +34,7 @@ public class UtenteController {
         log.info("POST /api/utenti - Creazione nuovo utente: {}", utente.getUsername());
         try {
             Utente nuovoUtente = utenteService.creaUtente(utente);
-            log.info("Creazione andata a buon fine: {}");
+            log.info("Creazione andata a buon fine");
             return new ResponseEntity<>(nuovoUtente, HttpStatus.CREATED);
         } catch (IllegalArgumentException e){
             log.error("Errore nella creazione utente: {}", e.getMessage());
@@ -76,7 +76,7 @@ public class UtenteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Utente> aggiornaUtente(@PathVariable Long id, Utente utenteDetails) {
+    public ResponseEntity<Utente> aggiornaUtente(@PathVariable Long id, @RequestBody Utente utenteDetails) {
         try{
             Utente utente = utenteService.aggiornaUtente(id, utenteDetails);
             log.info("Aggiornamento andato a buon fine: {}");
@@ -88,7 +88,7 @@ public class UtenteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Utente> eliminaUtente(@PathVariable Long id, Utente utenteDetails){
+    public ResponseEntity<Void> eliminaUtente(@PathVariable Long id, @RequestBody Utente utenteDetails){
         try{
             utenteService.eliminaUtente(id, utenteDetails);
             log.info("Eliminazione andata a buon fine: {}");

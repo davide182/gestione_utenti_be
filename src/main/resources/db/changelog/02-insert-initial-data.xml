@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="2" author="davide">
+        <comment>Inserimento utenti iniziali</comment>
+        
+        <!-- Nota: Le password sono già criptate con BCrypt -->
+        <insert tableName="utenti">
+            <column name="username" value="admin"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMy.MrZ7RZ2qJ3XqKX5X5K5X5K5X5K5X5K5"/> <!-- admin123 -->
+            <column name="email" value="admin@example.com"/>
+            <column name="telefono" value="1234567890"/>
+            <column name="data_nascita" value="1990-01-01"/>
+            <column name="ruolo" value="ADMIN"/>
+        </insert>
+        
+        <insert tableName="utenti">
+            <column name="username" value="mario.rossi"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMy.MrZ7RZ2qJ3XqKX5X5K5X5K5X5K5X5K5"/> <!-- password123 -->
+            <column name="email" value="mario.rossi@example.com"/>
+            <column name="telefono" value="0987654321"/>
+            <column name="data_nascita" value="1995-05-15"/>
+            <column name="ruolo" value="USER"/>
+        </insert>
+        
+        <insert tableName="utenti">
+            <column name="username" value="luca.bianchi"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMy.MrZ7RZ2qJ3XqKX5X5K5X5K5X5K5X5K5"/> <!-- password456 -->
+            <column name="email" value="luca.bianchi@example.com"/>
+            <column name="telefono" value="1122334455"/>
+            <column name="data_nascita" value="1988-10-20"/>
+            <column name="ruolo" value="USER"/>
+        </insert>
+        
+        <rollback>
+            <delete tableName="utenti">
+                <where>username IN ('admin', 'mario.rossi', 'luca.bianchi')</where>
+            </delete>
+        </rollback>
+    </changeSet>
+    
+</databaseChangeLog>
