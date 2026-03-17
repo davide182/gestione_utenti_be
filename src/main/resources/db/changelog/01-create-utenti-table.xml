@@ -5,16 +5,25 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
-    <changeSet id="1" author="davide">
-        <comment>Creazione tabella utenti</comment>
+    <!-- ============================================= -->
+    <!-- CHANGE SET 1: CREAZIONE TABELLA UTENTI        -->
+    <!-- ============================================= -->
+    <changeSet id="1" author="davide"><!--CHANGESET VIENE UTILIZZATO PER TENERE TRACCIA DI QUELLO CHE è STATO ESEGUITO IN BASE ALL'ID E L'AUTORE IN BASE AL DATABASECHANGELOG-->
+        <comment>
+            Crea la tabella utenti con tutti i campi necessari
+        </comment>
         
         <createTable tableName="utenti">
             <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
+                <constraints primaryKey="true" 
+                           primaryKeyName="pk_utenti"
+                           nullable="false"/>
             </column>
             
             <column name="username" type="VARCHAR(50)">
-                <constraints unique="true" nullable="false"/>
+                <constraints unique="true" 
+                           uniqueConstraintName="uk_utenti_username"
+                           nullable="false"/>
             </column>
             
             <column name="password" type="VARCHAR(255)">
@@ -22,10 +31,14 @@
             </column>
             
             <column name="email" type="VARCHAR(255)">
-                <constraints unique="true" nullable="false"/>
+                <constraints unique="true" 
+                           uniqueConstraintName="uk_utenti_email"
+                           nullable="false"/>
             </column>
             
-            <column name="telefono" type="VARCHAR(20)"/>
+            <column name="telefono" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
             
             <column name="data_nascita" type="DATE">
                 <constraints nullable="false"/>
@@ -36,6 +49,7 @@
             </column>
         </createTable>
         
+        <!-- ESEGUITO SOLO SU CHIAMATA PER TORNARE ALLO STATO PRECEDENTE-->
         <rollback>
             <dropTable tableName="utenti"/>
         </rollback>

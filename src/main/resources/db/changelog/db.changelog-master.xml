@@ -5,8 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
-    <!-- File master che include tutti i changelog in ordine -->
+    <!-- File master che include tutti i changelog in ordine SAREBBERO TUTTI I FILE CHE APPLICANO DEI CAMBIAMENTI ALL'APP ESEGUITI IN ORDINE DA ME INSERITI-->
     <include file="db/changelog/01-create-utenti-table.xml"/>
-    <include file="db/changelog/02-insert-initial-data.xml"/>
-    
+    <include file="db/changelog/02-insert-data-utenti.xml"/>
 </databaseChangeLog>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- ============================================= -->
+    <!-- CHANGE SET 2: INSERIMENTO UTENTE ADMIN        -->
+    <!-- ============================================= -->
+    <!-- LE PASSWORD DI TUTTI GLI UTENTI CREATI SONO HASHATE DA GENERATEPASSWORDHASH -->
+    <changeSet id="2" author="davide">
+        <comment>
+            Inserisce l'utente amministratore
+        </comment>
+        
+        <insert tableName="utenti">
+            <column name="username" value="admin"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMy.MrZ7RZ2qJ3XqKX5X5K5X5K5X5K5X5K5"/>
+            <column name="email" value="admin@example.com"/>
+            <column name="telefono" value="1234567890"/>
+            <column name="data_nascita" value="1990-01-01"/>
+            <column name="ruolo" value="ADMIN"/>
+        </insert>
+        
+        <rollback>
+            <delete tableName="utenti">
+                <where>username='admin'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+    
+    <!-- ============================================= -->
+    <!-- CHANGE SET 3: INSERIMENTO MARIO ROSSI (USER)  -->
+    <!-- ============================================= -->
+    <changeSet id="3" author="davide">
+        <comment>
+            Inserisce il primo utente standard
+        </comment>
+        
+        <insert tableName="utenti">
+            <column name="username" value="mario.rossi"/>
+            <column name="password" value="$2a$10$8tVlQFqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQ"/>
+            <column name="email" value="mario.rossi@example.com"/>
+            <column name="telefono" value="0987654321"/>
+            <column name="data_nascita" value="1995-05-15"/>
+            <column name="ruolo" value="USER"/>
+        </insert>
+        
+        <rollback>
+            <delete tableName="utenti">
+                <where>username='mario.rossi'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+    
+    <!-- ============================================= -->
+    <!-- CHANGE SET 4: INSERIMENTO LUCA BIANCHI (USER) -->
+    <!-- ============================================= -->
+    <changeSet id="4" author="davide">
+        <comment>
+            Inserisce il secondo utente standard
+        </comment>
+        
+        <insert tableName="utenti">
+            <column name="username" value="luca.bianchi"/>
+            <column name="password" value="$2a$10$ZmEfYwLKmKmKmKmKmKmKmKmKmKmKmKmKmKmKmKmKmKmKmK"/>
+            <column name="email" value="luca.bianchi@example.com"/>
+            <column name="telefono" value="1122334455"/>
+            <column name="data_nascita" value="1988-10-20"/>
+            <column name="ruolo" value="USER"/>
+        </insert>
+        
+        <rollback>
+            <delete tableName="utenti">
+                <where>username='luca.bianchi'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+    
+</databaseChangeLog>

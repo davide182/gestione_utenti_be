@@ -20,8 +20,6 @@ public class UtenteService {
     private final UtenteRepository utenteRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private List<Utente> utentiPerRuolo;
-
     @Transactional
     public Utente creaUtente(Utente utente) {
         log.info("Tentativo di creazione utente: {}", utente.getUsername());

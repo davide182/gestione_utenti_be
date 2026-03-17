@@ -1,0 +1,38 @@
+GET http://localhost:8080/api/utenti
+GET http://localhost:8080/api/utenti/1
+GET http://localhost:8080/api/utenti/username/mario.rossi
+GET http://localhost:8080/api/utenti/ruolo/ADMIN
+GET http://localhost:8080/api/utenti/ruolo/USER
+
+POST http://localhost:8080/api/utenti
+Content-Type: application/json
+
+{
+    "username": "giuseppe.verdi",
+    "password": "password123",
+    "email": "giuseppe.verdi@example.com",
+    "telefono": "3345678901",
+    "dataNascita": "1992-08-25",
+    "ruolo": "USER"
+}
+
+PUT http://localhost:8080/api/utenti/4
+Content-Type: application/json
+
+{
+    "username": "giuseppe.verdi",
+    "password": "password123",
+    "email": "giuseppe.verdi@example.com",
+    "telefono": "3345678901",
+    "dataNascita": "1992-08-25",
+    "ruolo": "USER"
+}
+
+DELETE http://localhost:8080/api/utenti/4
+Content-Type: application/json
+
+{
+    "username": "giuseppe.verdi",
+    "password": "password123",
+    "email": "giuseppe.verdi@example.com"
+}
